@@ -155,7 +155,7 @@ FAILED (failures=1)
 				<section data-background="#202">
           <h1>Patch</h1>
           <p>Es una función o anotación que sirve para reemplazar un objeto por otro simulado</p>
-					<p>Se hace el reemplazo sobre el módulo que se esta testeando puede cambiar cualquier función, clase sea local o importada</p>
+					<p>Se hace el reemplazo sobre el módulo que se esta testeando</p>
         </section>
 				<section>
 				<p>Uso de patch</p>
@@ -186,14 +186,55 @@ Ran 3 tests in 0.001s
 				</code></pre>
 				</section>
 				<section data-background="#220">
-          <h1>Duck Typing</h1>
-					<p>Es la premisa que si un objeto cumple con la presencia de los atributos o métodos esperados puede ser ejecutado</p>
-					<p>Si se mueve como pato, parece un pato, entonces es un pato</p>
-        </section>
-        
-			</div>
-		</div>
+          <h1>Sentinel</h1>
+					<p>Nos permite verificar el valor de retorno de las funciones </p>
+				<pre><code data-trim data-noescape>
+@patch('mi_paquete.otro_modulo.Original.saludo')
+def test_mock_sentinel_saludo(self, mock_saludo):
+		mock_saludo.return_value = sentinel.salida
+		self.assertEqual(sentinel.salida,
+		saludo_foraneo())
+		</code></pre>
+		</section>
+    <section data-background="#220">
+    <h1>Side effect</h1>
+	  <p>Nos permite especificar multiples valores de retorno o bien arrojar excepciones</p>
+    <pre><code data-noescape data-trim>
+@patch('mi_paquete.otro_modulo.Original.saludo')
+def test_mock_raise_saludo(self, mock_saludo):
+		mock_saludo.side_effect = ValueError('Lo hice reventar')
+		self.assertRaises(ValueError)
 
+@patch('mi_paquete.otro_modulo.Original.saludo')
+def test_mock_multiple_saludo(self, mock_saludo):
+		mock_saludo.side_effect = [sentinel.salida1, sentinel.salida2]
+		self.assertEqual(sentinel.salida1,
+		saludo_foraneo())
+		self.assertEqual(sentinel.salida2,
+		saludo_foraneo())
+      </code></pre>
+    </section>
+			
+    </section>
+		<section data-background="#022">
+      <p>Al final</p>
+      <pre><code data-noescape data-trim>
+test_saludo (tests.test_mi_modulo.OriginalTestCase) ... ok
+test_mock_call_saludo (tests.test_otro_modulo.SaludoOriginalTestCase) ... ok
+test_mock_multiple_saludo (tests.test_otro_modulo.SaludoOriginalTestCase) ... ok
+test_mock_raise_saludo (tests.test_otro_modulo.SaludoOriginalTestCase) ... ok
+test_mock_saludo (tests.test_otro_modulo.SaludoOriginalTestCase) ... ok
+test_mock_sentinel_saludo (tests.test_otro_modulo.SaludoOriginalTestCase) ... ok
+test_saludo (tests.test_otro_modulo.SaludoOriginalTestCase) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.002s
+
+OK
+</code></pre>
+        </section>
+        </div>
+		</div>
 		<script src="lib/js/head.min.js"></script>
 		<script src="js/reveal.js"></script>
 
