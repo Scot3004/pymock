@@ -26,11 +26,15 @@
 			<div class="slides">
 				<section data-background="#022">
 					<h1>Test + Mocks</h1>
-					<p>Python Barranquilla</p>
-					<p>Sergio Orozco Torres</p>
+					<p><a href="http://pybaq.co/">Python Barranquilla</a></p>
+					<p><a href="http://scot3004.github.io/">Sergio Orozco Torres</a></p>
+					<p><a href="http://www.joonik.com/">Joonik</a></p>
 				</section>
-        <section><h1>Cambios</h1><p>Un inevitable compañero a la hora de desarrollar una aplicación</p></section>
-				<section>
+        <section data-background="#200">
+					<h1>Cambios</h1>
+					<p>Un inevitable compañero a la hora de desarrollar una aplicación</p>
+					</section>
+				<section data-background="#202">
 					<p>Un código de ejemplo</p>
 					<pre><code data-trim data-noescape>
 def hola(nombre):
@@ -49,7 +53,7 @@ def hola(nombre):
 saludos mundo
 					</code></pre>
 				</section>
-        <section>
+        <section data-background="#220">
 					<p>A ver si aún no importa</p>
 					<pre><code data-trim data-noescape>
 import os
@@ -69,12 +73,44 @@ def ruta_images(img):
 >>> print(ruta_images('imagen'))
 uploads/img/imagen
 					</code></pre>
-          <p>Y por que no me procesa la imagen que subí</p>
+          <p>¿Y por que no me procesa la imagen que subí?</p>
 				</section>
         <section>
           <h1>unittest</h1>
           <p>Es un set de utilitarios para verificar el comportamiento de una aplicación usando usando una serie de test cases</p>
         </section>
+				<section>
+					<p>Un test básico</p>
+				<pre><code data-trim data-noescape>
+class Original:
+    def saludo(self, nombre):
+        return 'saludos %s soy original' % nombre
+				</code></pre>
+				<pre><code data-trim data-noescape>
+import unittest
+from mi_paquete.mi_modulo import Original
+
+class OriginalTestCase(unittest.TestCase):
+    def test_saludo(self):
+        original = Original()
+        self.assertEqual('saludos Sergio, soy original',
+				original.saludo('Sergio'))
+				</code></pre>
+				<pre><code data-trim data-noescape>
+$ python -m unittest discover -v
+test_saludo (tests.test_mi_modulo.OriginalTestCase) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+</code></pre>
+				</section>
+				<section>
+				<pre><code data-trim data-noescape>
+
+				</code></pre>		
+				</section>
 				<section>
           <h1>Assert</h1>
           <p>Verifica si el resultado que se espera es igual al resultado arrojado por la aplicación</p>
