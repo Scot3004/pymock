@@ -75,9 +75,13 @@ uploads/img/imagen
 					</code></pre>
           <p>¿Y por que no me procesa la imagen que subí?</p>
 				</section>
-        <section>
+        <section data-background="#020">
           <h1>unittest</h1>
           <p>Es un set de utilitarios para verificar el comportamiento de una aplicación usando usando una serie de test cases</p>
+        </section>
+				<section data-background="#200">
+          <h1>Assert</h1>
+          <p>Verifica si el resultado que se espera es igual al resultado arrojado por la aplicación</p>
         </section>
 				<section>
 					<p>Un test básico</p>
@@ -108,18 +112,37 @@ OK
 				</section>
 				<section>
 				<pre><code data-trim data-noescape>
+import unittest
+from mi_paquete.mi_modulo import Original
 
+class OriginalTestCase(unittest.TestCase):
+    def test_saludo(self):
+        original = Original()
+        self.assertEqual('saludos Sergio, no soy original',
+				original.saludo('Sergio'))
+				</code></pre>
+				<pre><code data-trim data-noescape>
+test_saludo (tests.test_mi_modulo.OriginalTestCase) ... FAIL
+
+======================================================================
+FAIL: test_saludo (tests.test_mi_modulo.OriginalTestCase)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/.../ejemplo/tests/test_mi_modulo.py", line 8, in test_saludo
+    original.saludo('Sergio'))
+AssertionError: 'saludos Sergio, no soy original' != 'saludos Sergio, soy original'
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (failures=1)
 				</code></pre>		
 				</section>
-				<section>
-          <h1>Assert</h1>
-          <p>Verifica si el resultado que se espera es igual al resultado arrojado por la aplicación</p>
-        </section>
-        <section>
+        <section data-background="#002">
           <h1>Mock</h1>
           <p>Es una implementación que simula el comportamiento de un objeto</p>
         </section>
-        <section>
+        <section data-background="#022">
           <h1>Cuando usar mock</h1>
 					<ul>
 						<li>La función retorna valores no deterministicos</li>
@@ -129,11 +152,11 @@ OK
 						<li>Debe incluir atributos para su prueba</li>
 					</ul>
         </section>
-				<section>
+				<section data-background="#202">
           <h1>Patch</h1>
           <p>Es una función o anotación que sirve para reemplazar un objeto por otro simulado</p>
         </section>
-				<section>
+				<section data-background="#220">
           <h1>Duck Typing</h1>
 					<p>Es la premisa que si un objeto cumple con la presencia de los atributos o métodos esperados puede ser ejecutado</p>
 					<p>Si se mueve como pato, parece un pato, entonces es un pato</p>
