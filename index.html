@@ -155,7 +155,36 @@ FAILED (failures=1)
 				<section data-background="#202">
           <h1>Patch</h1>
           <p>Es una función o anotación que sirve para reemplazar un objeto por otro simulado</p>
+					<p>Se hace el reemplazo sobre el módulo que se esta testeando puede cambiar cualquier función, clase sea local o importada</p>
         </section>
+				<section>
+				<p>Uso de patch</p>
+				<pre><code data-trim data-noescape>
+import unittest
+from mock import patch, Mock
+from mi_paquete.otro_modulo import saludo_foraneo
+
+class SaludoOriginalTestCase(unittest.TestCase):
+    def test_saludo(self):
+        self.assertEqual('saludos Pythonist, soy original',
+        saludo_foraneo())
+
+    @patch('mi_paquete.otro_modulo.Original.saludo')
+    def test_mock_saludo(self, mock_saludo):
+        mock_saludo.return_value = 'cambie la salida'
+        self.assertEqual('cambie la salida',
+        saludo_foraneo())
+
+				</code></pre>
+				<pre><code data-trim data-noescape>			
+test_saludo (tests.test_mi_modulo.OriginalTestCase) ... ok
+test_mock_saludo (tests.test_otro_modulo.SaludoOriginalTestCase) ... ok
+test_saludo (tests.test_otro_modulo.SaludoOriginalTestCase) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.001s
+				</code></pre>
+				</section>
 				<section data-background="#220">
           <h1>Duck Typing</h1>
 					<p>Es la premisa que si un objeto cumple con la presencia de los atributos o métodos esperados puede ser ejecutado</p>
